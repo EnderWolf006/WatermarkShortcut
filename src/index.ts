@@ -1,10 +1,9 @@
 import { basekit, FieldType, field, FieldComponent, FieldCode, NumberFormatter, AuthorizationType, DateFormatter } from '@lark-opdev/block-basekit-server-api';
-import dayjs from 'dayjs';
 const { t } = field;
 
 
 // 通过addDomainList添加请求接口的域名
-basekit.addDomainList(['*.baseopendev.com', 'localhost']);
+basekit.addDomainList(['shui-yin-zhao-pian-gai-lark-base.replit.app']);
 
 basekit.addField({
   // 定义捷径的i18n语言资源
@@ -77,12 +76,12 @@ basekit.addField({
       let { files, date, text } = formItemParams;
       for (let i = 0; i < files.length; i++) {
         const url = files[i].tmp_url
-        let api = `http://localhost:3000/addWatermark?url=${url}&time=${new Date(date).getTime()}&text=${text[0].text}`;
+        let api = `https://shui-yin-zhao-pian-gai-lark-base.replit.app/addWatermark?url=${url}&time=${new Date(date).getTime() + 1000 * 60 * 60 * 8}&text=${text[0].text}`;
         const data = (await (await context.fetch(api, { method: 'GET' })).json());
         if (!data || !data['suc']) continue
         const fileName = data['fileName']
         fileUrls.push({
-          content: `http://localhost:3000/out/${fileName}`,
+          content: `https://shui-yin-zhao-pian-gai-lark-base.replit.app/out/${fileName}`,
           name: fileName,
           contentType: 'attachment/url',
         })
@@ -94,10 +93,7 @@ basekit.addField({
     } catch (error) {
       console.log(error);
       return {
-        code: FieldCode.Success,
-        data: {
-          weather: String(error)
-        },
+        code: FieldCode.Error
       };
     }
   },
