@@ -6,7 +6,7 @@ const domain = 'https://shui-yin-zhao-pian-gai-lark-base.replit.app';
 // const domain = 'http://localhost:3000';
 
 // 通过addDomainList添加请求接口的域名
-basekit.addDomainList(['localhost']);
+basekit.addDomainList(['localhost','shui-yin-zhao-pian-gai-lark-base.replit.app']);
 
 basekit.addField({
   // 定义捷径的i18n语言资源
@@ -24,6 +24,7 @@ basekit.addField({
         'label.singleSelect.rightTop': '右上',
         'label.singleSelect.rightBottom': '右下',
         'label.singleSelect.cover': '覆盖全图',
+        'label.singleSelect.center': '居中大字',
 
       },
       'en-US': {
@@ -38,6 +39,7 @@ basekit.addField({
         'label.singleSelect.rightTop': 'Right top',
         'label.singleSelect.rightBottom': 'Right bottom',
         'label.singleSelect.cover': 'Cover the entire image',
+        'label.singleSelect.center': 'Center big text',
       },
       'ja-JP': {
         'label.fieldSelect.files': '画像アプロードのフィールドを選択してください',
@@ -51,6 +53,7 @@ basekit.addField({
         'label.singleSelect.rightTop': '右上',
         'label.singleSelect.rightBottom': '右下',
         'label.singleSelect.cover': '全体を埋める',
+        'label.singleSelect.center': '中央に大文字を表示',
       },
     }
   },
@@ -115,6 +118,10 @@ basekit.addField({
           {
             label: t('label.singleSelect.cover'),
             value: 'cover'
+          },
+          {
+            label: t('label.singleSelect.center'),
+            value: 'center'
           },
         ],
       },
