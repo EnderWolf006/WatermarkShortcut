@@ -2,11 +2,11 @@ import { basekit, FieldType, field, FieldComponent, FieldCode, NumberFormatter, 
 const { t } = field;
 
 
-const domain = 'https://shui-yin-zhao-pian-gai-lark-base.replit.app';
+const domain = 'https://watermark-server.replit.app';
 // const domain = 'http://localhost:3000';
 
 // 通过addDomainList添加请求接口的域名
-basekit.addDomainList(['localhost','shui-yin-zhao-pian-gai-lark-base.replit.app']);
+basekit.addDomainList(['localhost','watermark-server.replit.app']);
 
 basekit.addField({
   // 定义捷径的i18n语言资源
@@ -155,7 +155,7 @@ basekit.addField({
       
       for (let i = 0; i < files.length; i++) {
         const url = files[i].tmp_url
-        let api = domain + `/addWatermark?url=${url}&time=${date ? new Date(date).getTime() + 1000 * 60 * 60 * 8 : '@NULL@'}&text=${text[0].text || text[0][0].text}&direction=${direction.value}`;
+        let api = domain + `/addWatermark?url=${url}&time=${date ? new Date(date).getTime() + 1000 * 60 * 60 * 8 : '@NULL@'}&text=${text[0].text || text[0][0].text}&direction=${direction.value}&origin_name=${files[i].name}`;
         console.log(JSON.stringify(text));
         
         const data = (await (await context.fetch(api, { method: 'GET' })).json());
