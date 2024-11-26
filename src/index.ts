@@ -159,6 +159,8 @@ basekit.addField({
         console.log(JSON.stringify(text));
         
         const data = (await (await context.fetch(api, { method: 'GET' })).json());
+        console.log(`服务端返回：${data}`);
+        
         if (!data || !data['suc']) continue
         const { fileName, width, height } = data
         const info = {
