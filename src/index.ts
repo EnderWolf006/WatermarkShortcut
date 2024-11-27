@@ -2,8 +2,8 @@ import { basekit, FieldType, field, FieldComponent, FieldCode, NumberFormatter, 
 const { t } = field;
 
 
-const domain = 'https://watermark-server.replit.app';
-// const domain = 'http://localhost:3000';
+// const domain = 'https://watermark-server.replit.app';
+const domain = 'http://localhost:3000';
 
 // 通过addDomainList添加请求接口的域名
 basekit.addDomainList(['localhost','watermark-server.replit.app']);
@@ -155,11 +155,10 @@ basekit.addField({
       
       for (let i = 0; i < files.length; i++) {
         const url = files[i].tmp_url
-        let api = domain + `/addWatermark?url=${url}&time=${date ? new Date(date).getTime() + 1000 * 60 * 60 * 8 : '@NULL@'}&text=${text[0].text || text[0][0].text}&direction=${direction.value}&origin_name=${files[i].name}`;
-        console.log(JSON.stringify(text));
+        let api = domain + `/addWatermark?url=${url}&time=${date ? new Date(date).getTime() + 1000 * 60 * 60 * 8 : '@NULL@'}&text=${escape(text[0].text || text[0][0].text)}&direction=${direction.value}&origin_name=${escape(files[i].name)}`;
         
         const data = (await (await context.fetch(api, { method: 'GET' })).json());
-        console.log(`服务端返回：${data}`);
+        console.log(`服务端返回：`, data);
         
         if (!data || !data['suc']) continue
         const { fileName, width, height } = data
@@ -172,6 +171,8 @@ basekit.addField({
         }
         fileUrls.push(info)
       }
+      console.log("urls", fileUrls);
+      
       return {
         code: FieldCode.Success,
         data: fileUrls
