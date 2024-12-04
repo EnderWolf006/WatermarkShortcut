@@ -2,7 +2,8 @@ import { basekit, FieldType, field, FieldComponent, FieldCode, NumberFormatter, 
 const { t } = field;
 
 
-const domain = 'https://watermark-server.replit.app';
+// const domain = 'https://watermark-server.replit.app';
+const domain = 'https://watermark-server-2.replit.app';
 // const domain = 'http://localhost:3000';
 
 // 通过addDomainList添加请求接口的域名
