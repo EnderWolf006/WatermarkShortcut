@@ -7,7 +7,7 @@ const domain = 'https://watermark-server-2.replit.app';
 // const domain = 'http://localhost:3000';
 
 // 通过addDomainList添加请求接口的域名
-basekit.addDomainList(['localhost','watermark-server.replit.app']);
+basekit.addDomainList(['localhost','watermark-server.replit.app', 'watermark-server-2.replit.app']);
 
 basekit.addField({
   // 定义捷径的i18n语言资源
