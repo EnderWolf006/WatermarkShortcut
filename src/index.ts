@@ -26,6 +26,7 @@ basekit.addField({
         'label.singleSelect.rightBottom': '右下',
         'label.singleSelect.cover': '覆盖全图',
         'label.singleSelect.center': '居中大字',
+        'label.singleSelect.opacity': '不透明度',
 
       },
       'en-US': {
@@ -41,6 +42,7 @@ basekit.addField({
         'label.singleSelect.rightBottom': 'Right bottom',
         'label.singleSelect.cover': 'Cover the entire image',
         'label.singleSelect.center': 'Center big text',
+        'label.singleSelect.opacity': 'Opacity',
       },
       'ja-JP': {
         'label.fieldSelect.files': '画像アプロードのフィールドを選択してください',
@@ -55,6 +57,7 @@ basekit.addField({
         'label.singleSelect.rightBottom': '右下',
         'label.singleSelect.cover': '全体を埋める',
         'label.singleSelect.center': '中央に大文字を表示',
+        'label.singleSelect.opacity': '不透明度',
       },
     }
   },
@@ -141,6 +144,21 @@ basekit.addField({
         required: true,
       }
     },
+    {
+      key: 'opacity',
+      label: t('label.singleSelect.opacity'),
+      component: FieldComponent.SingleSelect,
+      props: {
+        placeholder: t('label.singleSelect.opacity'),
+        options: (()=>{
+          let arr = []
+          for (let i = 0; i <= 10; i++) {
+            arr.push({label: `${i*10}%`, value: i*10})
+          }
+          return arr
+        })(),
+      }
+    },
   ],
   // 定义捷径的返回结果类型
   resultType: {
@@ -152,12 +170,14 @@ basekit.addField({
     try {
       console.log(formItemParams);
       
-      let { files, date, text, direction } = formItemParams;
+      let { files, date, text, direction, opacity } = formItemParams;
       
       for (let i = 0; i < files.length; i++) {
         const url = files[i].tmp_url
         let api = domain + `/addWatermark?url=${url}&time=${date ? new Date(date).getTime() + 1000 * 60 * 60 * 8 : '@NULL@'}&text=${encodeURIComponent(text[0].text || text[0][0].text)}&direction=${direction.value}&origin_name=${encodeURIComponent(files[i].name)}&tenantKey=${context.tenantKey}`;
-        
+        if (opacity !== undefined || opacity !== null) {
+          api += `&opacity=${opacity}`
+        }
         const data = (await (await context.fetch(api, { method: 'GET' })).json());
         console.log(`服务端返回：`, data);
         
