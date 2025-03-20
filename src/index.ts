@@ -175,7 +175,7 @@ basekit.addField({
       for (let i = 0; i < files.length; i++) {
         const url = files[i].tmp_url
         let api = domain + `/addWatermark?url=${url}&time=${date ? new Date(date).getTime() + 1000 * 60 * 60 * 8 : '@NULL@'}&text=${encodeURIComponent(text[0].text || text[0][0].text)}&direction=${direction.value}&origin_name=${encodeURIComponent(files[i].name)}&tenantKey=${context.tenantKey}`;
-        if (opacity !== undefined || opacity !== null) {
+        if (opacity !== undefined && opacity !== null) {
           api += `&opacity=${opacity.value}`
         }
         const data = (await (await context.fetch(api, { method: 'GET' })).json());
